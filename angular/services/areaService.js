@@ -1,16 +1,11 @@
 (function () {
-    var areaServiceModule = angular.module('areaServiceModule', ['uuidGeneratorServiceModule']);
+    var areaServiceModule = angular.module('areaServiceModule', ['uuidGeneratorServiceModule', 'storageServiceModule']);
 
-    areaServiceModule.factory('areaService', ['$log', 'uuidGeneratorService', function ($log, uuidGeneratorService) {
-        var _areas = [{
-            id: 1,
-            name: 'Area 1'
-        }, {
-            id: 2,
-            name: 'Area 2'
-        }];
+    areaServiceModule.factory('areaService', ['$log', 'uuidGeneratorService', 'storageService', function ($log, uuidGeneratorService, storageService) {
+        var _areas = [],
+            STORAGE_KEY = 'area-list-storage';
 
-        // --------
+        // helper function 
         function findSingleIndex(arr, propertyName, value) {
             var foundIndex = -1;
 
@@ -25,7 +20,9 @@
         }
 
         function getAreas() {
-            // read from local storage
+            if(!_areas || !_areas.length)
+                _areas = storageService.get(STORAGE_KEY) || [];
+                
             return _areas;
         }
 
@@ -34,7 +31,8 @@
                 newArea = {
                     id: id,
                     name: name,
-                    coordinates: coordinates
+                    coordinates: coordinates,
+                    createdAt: new Date()
                 },
                 foundIndex;
 
@@ -48,6 +46,7 @@
             }
 
             _areas.push(newArea);
+            storageService.set(_areas);
         }
 
         function editArea(id, newCoordinates) {
@@ -55,6 +54,7 @@
 
             if (foundIndex > -1) {
                 _areas[foundIndex].coordinates = newCoordinates;
+                storageService.set(_areas);
             } else {
                 $log.error('Edit area - invalid area id');
             }
@@ -65,6 +65,7 @@
 
             if (foundIndex > -1) {
                 _areas[foundIndex].name = newName;
+                storageService.set(_areas);
             } else {
                 $log.error('Edit area name - invalid area id');
             }
@@ -75,6 +76,7 @@
 
             if (foundIndex > -1) {
                 _areas.splice(foundIndex, 1);
+                storageService.set(_areas);
             } else {
                 $log.error('Delete area - invalid area id');
             }
