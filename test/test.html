@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tests</title>
+    <link rel="stylesheet" media="all" href="vendor/mocha/mocha.css">
+</head>
+
+<body>
+    <div id="mocha">
+    </div>
+    <div id="messages"></div>
+    <div id="fixtures"></div>
+    <script src="vendor/mocha/mocha.js"></script>
+    <script src="vendor/chai/chai.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <script src="../angular/controllers/indexCtrl.js"></script>
+    <script src="../angular/services/uuidGeneratorService.js"></script>
+    <script src="../angular/services/areaService.js"></script>
+    <script src="../angular/services/storageService.js"></script>
+    <script>
+        mocha.setup('tdd')
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular-mocks.js"></script>
+    <script src="servicesTest.js"></script>
+    <script>
+        mocha.run();
+    </script>
+</body>
+
+</html>
