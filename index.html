@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <title>Area saver</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Custom stylesheet-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+    <!--Angular-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+
+    <!--Angular scripts-->
+    <script type="text/javascript" src="angular/controllers/indexCtrl.js"></script>
+    <script type="text/javascript" src="angular/services/areaService.js"></script>
+
+    <!--TODO: Should remove this, add in a library-->
+    <script type="text/javascript" src="index.js"></script>
+</head>
+
+<body>
+    <div class="container" ng-controller="IndexController">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="map">
+                </div>
+            </div>
+        </div>
+        <button ng-click="addNewArea()">Add area</button>
+        <div class="row area-list" ng-repeat="area in areas">
+            <div class="col-md-12">
+                <div class="row area-item">
+                    <div class="col-md-6">
+                        <div class="area-name pull-right">
+                            {{area.name}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="pull-left">
+                            <button class="btn btn-primary">Edit</button>
+                            <button class="btn btn-danger" ng-click="deleteArea(area.id)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZ4DG8AIfKnWz95fjpgjJqk0A2vepCG4&callback=initMap">
+    </script>
+</body>
+
+</html>
