@@ -35,7 +35,7 @@
             </div>
         </div>
         <button ng-click="addNewArea()">Add area</button>
-        <div class="row area-list" ng-repeat="area in areas">
+        <div class="row area-list" ng-repeat="area in areas track by area.id">
             <div class="col-md-12">
                 <div class="row area-item">
                     <div class="col-md-6">
