@@ -1,9 +1,13 @@
-var myApp = angular.module('myApp', ['areaServiceModule']);
+(function () {
 
-myApp.controller('IndexController', ['$scope', 'areaService', function ($scope, areaService) {
-    $scope.areas = areaService.getAreas();
+    var myApp = angular.module('myApp', ['areaServiceModule']);
 
-    $scope.deleteArea = function (areaId) {
-        areaService.deleteArea(areaId);
-    };
-}]);
+    myApp.controller('IndexController', ['$scope', 'areaService', function ($scope, areaService) {
+        $scope.areas = areaService.getAreas();
+
+        $scope.deleteArea = function (areaId) {
+            areaService.deleteArea(areaId);
+        };
+    }]);
+
+})();
