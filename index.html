@@ -4,40 +4,31 @@
 <head>
     <title>Area saver</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!--Custom stylesheet-->
     <link rel="stylesheet" type="text/css" href="style.css">
-
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-
     <!--Angular-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
-
-    <!--Angular scripts-->
-    <script type="text/javascript" src="angular/controllers/indexCtrl.js"></script>
-
+    <!--Angular controller-->
+    <script type="text/javascript" src="angular/controllers/mainController.js"></script>
     <!--Angular services-->
     <script type="text/javascript" src="angular/services/areaService.js"></script>
     <script type="text/javascript" src="angular/services/storageService.js"></script>
     <script type="text/javascript" src="angular/services/uuidGeneratorService.js"></script>
-
     <!--Angular components-->
     <script type="text/javascript" src="angular/components/area-list/areaList.js"></script>
     <script type="text/javascript" src="angular/components/google-map/googleMap.js"></script>
 </head>
 
 <body>
-    <div class="container" ng-controller="IndexController">
+    <div class="container" ng-controller="MainController as main">
         <div class="row">
             <div class="col-md-12">
-                <!--<div id="map">
-                </div>-->
-                <google-map></google-map>
+                <google-map on-created-rectangle="main.addArea(coordinates)"></google-map>
             </div>
         </div>
         <area-list></area-list>

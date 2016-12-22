@@ -4,10 +4,11 @@
         controller: ['lazyLoadApi', GoogleMapController],
         bindings: {
             // on created
-            // display rectangles 
-            // deletion
-            // on edita
-            // focus on Edit butn click
+            onCreatedRectangle: '&'
+                // display rectangles 
+                // deletion
+                // on edita
+                // focus on Edit butn click
         }
     });
 
@@ -63,6 +64,9 @@
                 google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (rectangle) {
                     console.log(rectangle);
                     window.rect = rectangle;
+                    ctrl.onCreatedRectangle({
+                        coordinates: rectangle.getBounds().toJSON()
+                    });
                 });
 
                 // Draw rectangles
