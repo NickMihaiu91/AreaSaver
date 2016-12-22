@@ -20,7 +20,7 @@
 </div>`,
         controller: ['$scope', AreaListController],
         bindings: {
-            areas: '<',
+            data: '<',
             onDeleteAreaClick: '&'
         }
     });
@@ -36,6 +36,10 @@
             }
         };
 
+        ctrl.$onInit = function () {
+            ctrl.areas = ctrl.data.areas;
+        };
+
         ctrl.$onChanges = function (changesObj) {
             console.log('Changes', changesObj);
         };
@@ -44,10 +48,9 @@
             console.log('Digesting');
         }
 
-        $scope.$watch('$ctrl.areas', function(newValue) {
+        $scope.$watch('$ctrl.areas', function (newValue) {
             console.log('watch', newValue);
-          if (angular.isArray(newValue)) {
-          }
+            if (angular.isArray(newValue)) {}
         });
 
         // setInterval(function () {
