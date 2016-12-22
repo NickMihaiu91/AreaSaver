@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Custom stylesheet-->
     <link rel="stylesheet" type="text/css" href="style.css">
-    <!--Bootstrap-->
+    <!--Bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
     <!--Fonts-->
@@ -22,17 +22,57 @@
     <!--Angular components-->
     <script type="text/javascript" src="angular/components/area-list/areaList.js"></script>
     <script type="text/javascript" src="angular/components/google-map/googleMap.js"></script>
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <!--Bootstrap js-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <div class="container" ng-controller="MainController as main">
+<body ng-controller="MainController as main">
+    <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <google-map on-created-rectangle="main.addArea(coordinates)"></google-map>
             </div>
         </div>
-        <area-list areas="main.areas" on-delete-area-click="main.deleteArea(areaId)"></area-list>
+        <area-list data="main.data" on-delete-area-click="main.deleteArea(areaId)"></area-list>
     </div>
+    <!-- .modal -->
+    <div id="setAreaNameModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="main.dropArea()">
+                    <span aria-hidden="true">&times;
+                        </span></button>
+                    <h4 class="modal-title">Set area name</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline text-center" name="main.areaNameForm" novalidate>
+                        <div class="form-group">
+                            <label for="areaNameInput">Area name:</label>
+                            <input type="text" class="form-control" id="areaNameInput" placeholder="Area 1" ng-model="main.areaName" name="areaName"
+                                required="">
+                            <div ng-show="main.areaNameForm.$submitted || main.areaNameForm.areaName.$touched">
+                                <div class="text-danger" ng-show="main.areaNameForm.areaName.$invalid">
+                                    Area name can't be empty
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="main.dropArea()">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="main.saveArea()">Save area</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 </body>
 
 </html>

@@ -5,16 +5,38 @@
     areaApp.controller('MainController', ['$scope', 'areaService', '$timeout', function ($scope, areaService, $timeout) {
         var ctrl = this;
 
-        ctrl.areas = areaService.getAreas();
+        ctrl.data = {};
+        ctrl.data.areas = areaService.getAreas();
 
         ctrl.addArea = function (coordinates) {
-            areaService.addArea('test' + Math.random().toString(), coordinates);
+            ctrl.areaCoordinates = coordinates;
+            $('#setAreaNameModal').modal();
             console.log('Added', coordinates);
         };
 
         ctrl.deleteArea = function (areaId) {
             console.log('ddddelete', areaId);
             areaService.deleteArea(areaId);
+        };
+
+        // modal 
+        ctrl.saveArea = function () {
+            ctrl.areaNameForm.$setSubmitted();
+            
+            if (ctrl.areaName) {
+                areaService.addArea(ctrl.areaName, ctrl.areaCoordinates);
+                $('#setAreaNameModal').modal('hide');
+                ctrl.areaName = null;
+                ctrl.areaCoordinates = null;
+            }
+        };
+
+        ctrl.dropArea = function () {
+            ctrl.areaName = null;
+            ctrl.areaCoordinates = null;
+            ctrl.areaNameForm.$setPristine();
+            ctrl.areaNameForm.areaName.$setUntouched();
+            console.log('Close modal');
         };
 
         // $timeout(function(){
