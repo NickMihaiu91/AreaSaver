@@ -36,7 +36,7 @@
             ctrl.areaCoordinates = null;
             ctrl.areaNameForm.$setPristine();
             ctrl.areaNameForm.areaName.$setUntouched();
-            console.log('Close modal');
+            ctrl.mapApi.deleteLastDrawnRectangle();
         };
 
         // $timeout(function(){

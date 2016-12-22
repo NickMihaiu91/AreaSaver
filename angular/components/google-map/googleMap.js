@@ -4,7 +4,8 @@
         controller: ['lazyLoadApi', GoogleMapController],
         bindings: {
             // on created
-            onCreatedRectangle: '&'
+            onCreatedRectangle: '&',
+            mapApi: '='
                 // display rectangles 
                 // deletion
                 // on edita
@@ -14,7 +15,18 @@
 
     function GoogleMapController(lazyLoadApi) {
         var ctrl = this,
+            lastDrawnRectangle = null,
             map = null;
+
+        ctrl.$onInit = function () {
+            ctrl.mapApi = {};
+
+            ctrl.mapApi.deleteLastDrawnRectangle = function () {
+                if (lastDrawnRectangle) {
+                    lastDrawnRectangle.setMap(null);
+                }
+            };
+        };
 
         ctrl.$postLink = function () {
             lazyLoadApi.then(initializeMap);
@@ -62,8 +74,8 @@
 
                 // Events
                 google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (rectangle) {
-                    console.log(rectangle);
-                    window.rect = rectangle;
+                    window.rect = rectangle; // DEBUG
+                    lastDrawnRectangle = rectangle;
                     ctrl.onCreatedRectangle({
                         coordinates: rectangle.getBounds().toJSON()
                     });

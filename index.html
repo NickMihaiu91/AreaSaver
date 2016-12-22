@@ -34,7 +34,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <google-map on-created-rectangle="main.addArea(coordinates)"></google-map>
+                <google-map on-created-rectangle="main.addArea(coordinates)" map-api="main.mapApi"></google-map>
             </div>
         </div>
         <area-list data="main.data" on-delete-area-click="main.deleteArea(areaId)"></area-list>
