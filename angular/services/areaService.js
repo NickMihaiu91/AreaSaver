@@ -46,7 +46,7 @@
             }
 
             _areas.push(newArea);
-            storageService.set(_areas);
+            storageService.set(STORAGE_KEY, _areas);
         }
 
         function editArea(id, newCoordinates) {
@@ -54,7 +54,7 @@
 
             if (foundIndex > -1) {
                 _areas[foundIndex].coordinates = newCoordinates;
-                storageService.set(_areas);
+                storageService.set(STORAGE_KEY, _areas);
             } else {
                 $log.error('Edit area - invalid area id');
             }
@@ -65,7 +65,7 @@
 
             if (foundIndex > -1) {
                 _areas[foundIndex].name = newName;
-                storageService.set(_areas);
+                storageService.set(STORAGE_KEY, _areas);
             } else {
                 $log.error('Edit area name - invalid area id');
             }
@@ -76,7 +76,7 @@
 
             if (foundIndex > -1) {
                 _areas.splice(foundIndex, 1);
-                storageService.set(_areas);
+                storageService.set(STORAGE_KEY, _areas);
             } else {
                 $log.error('Delete area - invalid area id');
             }
