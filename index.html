@@ -28,24 +28,20 @@
 
     <!--Angular components-->
     <script type="text/javascript" src="angular/components/area-list/areaList.js"></script>
-
-    <!--TODO: Should remove this, add in a library-->
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="angular/components/google-map/googleMap.js"></script>
 </head>
 
 <body>
     <div class="container" ng-controller="IndexController">
         <div class="row">
             <div class="col-md-12">
-                <div id="map">
-                </div>
+                <!--<div id="map">
+                </div>-->
+                <google-map></google-map>
             </div>
         </div>
         <area-list></area-list>
     </div>
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZ4DG8AIfKnWz95fjpgjJqk0A2vepCG4&libraries=drawing&callback=initMap">
-    </script>
 </body>
 
 </html>

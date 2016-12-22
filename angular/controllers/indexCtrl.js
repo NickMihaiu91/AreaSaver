@@ -5,5 +5,4 @@
     areaApp.controller('IndexController', ['$scope', function ($scope) {
         
     }]);
-
 })();
