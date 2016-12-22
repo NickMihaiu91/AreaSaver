@@ -4,6 +4,7 @@
         controller: ['lazyLoadApi', GoogleMapController],
         bindings: {
             onCreatedRectangle: '&',
+            onEditedRectangle: '&',
             mapApi: '=',
             data: '<'
         }
@@ -24,6 +25,7 @@
                         rectangle: lastDrawnRectangle,
                         areaId: areaId
                     });
+                    addEditListener(lastDrawnRectangle, areaId);
 
                     lastDrawnRectangle = null;
                 }
@@ -53,6 +55,9 @@
                         editable = rectangle.getEditable();
 
                     rectangle.setEditable(!editable);
+
+                    // focus
+                    map.fitBounds(rectangle.getBounds());
                 }
             };
 
@@ -109,7 +114,6 @@
 
                 // Events
                 google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (rectangle) {
-                    window.rect = rectangle; // DEBUG
                     lastDrawnRectangle = rectangle;
                     ctrl.onCreatedRectangle({
                         coordinates: rectangle.getBounds().toJSON()
@@ -133,10 +137,23 @@
                             rectangle: rectangle,
                             areaId: ctrl.areas[i].id
                         });
+
+                        // Register edit event
+                        addEditListener(rectangle, ctrl.areas[i].id);
                     }
                 }
             }
         };
+
+        function addEditListener(rectangle, areaId) {
+            google.maps.event.addListener(rectangle, 'bounds_changed', function () {
+                console.log('Bounds changed.', rectangle, areaId);
+                ctrl.onEditedRectangle({
+                    areaId: areaId,
+                    newCoordinates: rectangle.getBounds().toJSON()
+                });
+            });
+        }
     }
 
     angular.module('areaApp').service('lazyLoadApi', function lazyLoadApi($window, $q) {
