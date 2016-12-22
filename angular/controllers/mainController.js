@@ -16,6 +16,7 @@
 
         ctrl.deleteArea = function (areaId) {
             areaService.deleteArea(areaId);
+            ctrl.mapApi.deleteRectangleWithAreaId(areaId);
         };
 
         // modal 

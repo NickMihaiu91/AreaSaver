@@ -16,7 +16,8 @@
     function GoogleMapController(lazyLoadApi) {
         var ctrl = this,
             lastDrawnRectangle = null,
-            map = null;
+            map = null,
+            rectangles = [];
 
         ctrl.$onInit = function () {
             ctrl.mapApi = {};
@@ -24,6 +25,21 @@
             ctrl.mapApi.deleteLastDrawnRectangle = function () {
                 if (lastDrawnRectangle) {
                     lastDrawnRectangle.setMap(null);
+                }
+            };
+
+            ctrl.mapApi.deleteRectangleWithAreaId = function (areaId) {
+                var foundIndex = -1;
+
+                for (var i = 0; i < rectangles.length; i++) {
+                    if (rectangles[i].areaId === areaId) {
+                        foundIndex = i;
+                        break;
+                    }
+                }
+                if (foundIndex > -1) {
+                    rectangles[i].rectangle.setMap(null);
+                    rectangles.splice(foundIndex, 1);
                 }
             };
 
@@ -87,7 +103,7 @@
                 if (ctrl.areas && ctrl.areas.length) {
                     console.log('Drawing', ctrl.areas);
                     for (var i = 0; i < ctrl.areas.length; i++) {
-                        new google.maps.Rectangle({
+                        var rectangle = new google.maps.Rectangle({
                             map: map,
                             bounds: {
                                 north: ctrl.areas[i].coordinates.north,
@@ -95,6 +111,10 @@
                                 east: ctrl.areas[i].coordinates.east,
                                 west: ctrl.areas[i].coordinates.west
                             }
+                        });
+                        rectangles.push({
+                            rectangle: rectangle,
+                            areaId: ctrl.areas[i].id
                         });
                     }
                 }
