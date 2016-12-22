@@ -41,12 +41,16 @@
 
             if (foundIndex > -1) {
                 return {
-                    error: 'Duplicate name'
+                    error: 'Duplicate area name. Please choose another name.'
                 };
             }
 
             _areas.push(newArea);
             storageService.set(STORAGE_KEY, _areas);
+
+            return {
+                areaId: newArea.id
+            };
         }
 
         function editArea(id, newCoordinates) {

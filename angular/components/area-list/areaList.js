@@ -11,26 +11,35 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="pull-left">
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-primary" ng-click="$ctrl.editArea(area.id)">Edit</button>
                     <button class="btn btn-danger" ng-click="$ctrl.deleteArea(area.id)">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 </div>`,
-        controller: ['$scope', AreaListController],
+        controller: AreaListController,
         bindings: {
             data: '<',
-            onDeleteAreaClick: '&'
+            onDeleteAreaClick: '&',
+            onEditAreaClick: '&'
         }
     });
 
-    function AreaListController($scope) {
+    function AreaListController() {
         var ctrl = this;
 
         ctrl.deleteArea = function (areaId) {
             if (typeof ctrl.onDeleteAreaClick === 'function') {
                 ctrl.onDeleteAreaClick({
+                    areaId: areaId
+                });
+            }
+        };
+
+        ctrl.editArea = function (areaId) {
+            if (typeof ctrl.onEditAreaClick === 'function') {
+                ctrl.onEditAreaClick({
                     areaId: areaId
                 });
             }
@@ -47,14 +56,5 @@
         ctrl.$doCheck = function () {
             console.log('Digesting');
         }
-
-        $scope.$watch('$ctrl.areas', function (newValue) {
-            console.log('watch', newValue);
-            if (angular.isArray(newValue)) {}
-        });
-
-        // setInterval(function () {
-        //     console.log('AHHAHA', ctrl.areas);
-        // }, 3000)
     }
 })();

@@ -11,7 +11,6 @@
         ctrl.addArea = function (coordinates) {
             ctrl.areaCoordinates = coordinates;
             $('#setAreaNameModal').modal();
-            console.log('Added', coordinates);
         };
 
         ctrl.deleteArea = function (areaId) {
@@ -19,12 +18,21 @@
             ctrl.mapApi.deleteRectangleWithAreaId(areaId);
         };
 
-        // modal 
+        ctrl.editArea = function (areaId) {
+            ctrl.mapApi.editRectangleWithAreaId(areaId);
+        };
+
+        // set area name modal 
         ctrl.saveArea = function () {
             ctrl.areaNameForm.$setSubmitted();
-            
+
             if (ctrl.areaName) {
-                areaService.addArea(ctrl.areaName, ctrl.areaCoordinates);
+                var result = areaService.addArea(ctrl.areaName, ctrl.areaCoordinates);
+
+                if(result.error)
+                    return ctrl.saveAreaNameError = result.error;
+
+                ctrl.mapApi.saveLastDrawnRectangle(result.areaId);
                 $('#setAreaNameModal').modal('hide');
                 ctrl.areaName = null;
                 ctrl.areaCoordinates = null;
@@ -38,11 +46,5 @@
             ctrl.areaNameForm.areaName.$setUntouched();
             ctrl.mapApi.deleteLastDrawnRectangle();
         };
-
-        // $timeout(function(){
-        //     console.log('ceva', ctrl.data);
-        //     ctrl.data.name ='addadada';
-        //     ctrl.ceva = 'ddd';
-        // }, 5000)
     }]);
 })();

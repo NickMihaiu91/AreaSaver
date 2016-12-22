@@ -6,10 +6,6 @@
             onCreatedRectangle: '&',
             mapApi: '=',
             data: '<'
-                // display rectangles 
-                // deletion
-                // on edita
-                // focus on Edit butn click
         }
     });
 
@@ -22,24 +18,41 @@
         ctrl.$onInit = function () {
             ctrl.mapApi = {};
 
+            ctrl.mapApi.saveLastDrawnRectangle = function (areaId) {
+                if (lastDrawnRectangle) {
+                    rectangles.push({
+                        rectangle: lastDrawnRectangle,
+                        areaId: areaId
+                    });
+
+                    lastDrawnRectangle = null;
+                }
+            };
+
             ctrl.mapApi.deleteLastDrawnRectangle = function () {
                 if (lastDrawnRectangle) {
                     lastDrawnRectangle.setMap(null);
+                    lastDrawnRectangle = null;
                 }
             };
 
             ctrl.mapApi.deleteRectangleWithAreaId = function (areaId) {
-                var foundIndex = -1;
+                var foundIndex = rectangles.findIndex(r => r.areaId === areaId);
 
-                for (var i = 0; i < rectangles.length; i++) {
-                    if (rectangles[i].areaId === areaId) {
-                        foundIndex = i;
-                        break;
-                    }
-                }
                 if (foundIndex > -1) {
-                    rectangles[i].rectangle.setMap(null);
+                    rectangles[foundIndex].rectangle.setMap(null);
                     rectangles.splice(foundIndex, 1);
+                }
+            };
+
+            ctrl.mapApi.editRectangleWithAreaId = function (areaId) {
+                var foundIndex = rectangles.findIndex(r => r.areaId === areaId);
+
+                if (foundIndex > -1) {
+                    var rectangle = rectangles[foundIndex].rectangle,
+                        editable = rectangle.getEditable();
+
+                    rectangle.setEditable(!editable);
                 }
             };
 
@@ -57,6 +70,9 @@
                     },
                     zoom: 10
                 });
+
+                // DEBUG 
+                window.map = map;
 
                 // Try HTML5 geolocation.
                 if (navigator.geolocation) {
@@ -84,10 +100,11 @@
                         drawingModes: ['rectangle']
                     },
                     rectangleOptions: {
-                        editable: true,
-                        draggable: true
+                        // editable: true,
+                        // draggable: true
                     }
                 });
+
                 drawingManager.setMap(map);
 
                 // Events
