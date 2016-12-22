@@ -3,9 +3,9 @@
         template: '<div id="map"></div>',
         controller: ['lazyLoadApi', GoogleMapController],
         bindings: {
-            // on created
             onCreatedRectangle: '&',
-            mapApi: '='
+            mapApi: '=',
+            data: '<'
                 // display rectangles 
                 // deletion
                 // on edita
@@ -26,6 +26,8 @@
                     lastDrawnRectangle.setMap(null);
                 }
             };
+
+            ctrl.areas = ctrl.data.areas;
         };
 
         ctrl.$postLink = function () {
@@ -82,6 +84,20 @@
                 });
 
                 // Draw rectangles
+                if (ctrl.areas && ctrl.areas.length) {
+                    console.log('Drawing', ctrl.areas);
+                    for (var i = 0; i < ctrl.areas.length; i++) {
+                        new google.maps.Rectangle({
+                            map: map,
+                            bounds: {
+                                north: ctrl.areas[i].coordinates.north,
+                                south: ctrl.areas[i].coordinates.south,
+                                east: ctrl.areas[i].coordinates.east,
+                                west: ctrl.areas[i].coordinates.west
+                            }
+                        });
+                    }
+                }
             }
         };
     }

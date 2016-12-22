@@ -15,7 +15,6 @@
         };
 
         ctrl.deleteArea = function (areaId) {
-            console.log('ddddelete', areaId);
             areaService.deleteArea(areaId);
         };
 
