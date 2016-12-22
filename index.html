@@ -27,11 +27,11 @@
 <body>
     <div class="container" ng-controller="MainController as main">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <google-map on-created-rectangle="main.addArea(coordinates)"></google-map>
             </div>
         </div>
-        <area-list></area-list>
+        <area-list areas="main.areas" on-delete-area-click="main.deleteArea(areaId)"></area-list>
     </div>
 </body>
 
