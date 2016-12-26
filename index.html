@@ -11,6 +11,7 @@
         crossorigin="anonymous">
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
     <!--Angular-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
     <!--Angular controller-->
@@ -31,7 +32,14 @@
 </head>
 
 <body ng-controller="MainController as main">
-    <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+         <div class="container">
+             <div class="navbar-header">
+                 <a class="navbar-brand" href="#">Area Saver</a>
+             </div>
+         </div>
+    </nav>
+    <div class="container map-container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <google-map on-created-rectangle="main.addArea(coordinates)" on-edited-rectangle="main.editedArea(areaId, newCoordinates)"

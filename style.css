@@ -6,8 +6,18 @@ body {
     font-family: 'Open Sans', sans-serif!important;
 }
 
+.navbar .navbar-header .navbar-brand {
+    font-family: 'Baloo Thambi', cursive;
+    font-size: 26px;
+}
+
 #map {
     height: 500px;
+}
+
+.map-container {
+    position: relative;
+    top: 60px;
 }
 
 .area-list .area-item {
