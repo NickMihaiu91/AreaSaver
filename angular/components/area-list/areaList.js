@@ -1,7 +1,7 @@
 (function () {
     angular.module('areaApp').component('areaList', {
         //templateUrl: './angular/components/area-list/areaList.html',
-        template: `<div class="row area-list" ng-repeat="area in $ctrl.areas | orderBy: '-area.createdAt' track by area.id">
+        template: `<div class="row area-list" ng-repeat="area in $ctrl.areas | orderBy: '-createdAt' track by area.id">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row area-item">
             <div class="col-md-6 col-sm-6 col-xs-6">
@@ -17,6 +17,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="area-list-no-items text-center" ng-show="!$ctrl.areas.length">
+    <h2>No saved areas. Use the rectangle to select areas on map.</h2>
 </div>`,
         controller: AreaListController,
         bindings: {
