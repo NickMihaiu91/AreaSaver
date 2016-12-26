@@ -1,7 +1,7 @@
 (function () {
     angular.module('areaApp').component('areaList', {
         //templateUrl: './angular/components/area-list/areaList.html',
-        template: `<div class="row area-list" ng-repeat="area in $ctrl.areas | orderBy: '-createdAt' track by area.id">
+        template: `<div class="row area-list" ng-repeat="area in $ctrl.areas | orderBy: $ctrl.toDate track by area.id">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row area-item">
             <div class="col-md-6 col-sm-6 col-xs-6">
@@ -58,6 +58,10 @@
 
         ctrl.$doCheck = function () {
             console.log('Digesting');
-        }
+        };
+
+        ctrl.toDate = function (date) {
+            return new Date(date);
+        };
     }
 })();
