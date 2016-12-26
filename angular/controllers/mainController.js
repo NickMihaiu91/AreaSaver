@@ -41,6 +41,8 @@
                 $('#setAreaNameModal').modal('hide');
                 ctrl.areaName = null;
                 ctrl.areaCoordinates = null;
+                ctrl.areaNameForm.$setPristine();
+                ctrl.areaNameForm.areaName.$setUntouched();
             }
         };
 
