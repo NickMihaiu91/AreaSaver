@@ -39,7 +39,7 @@
              </div>
          </div>
     </nav>
-    <div class="container map-container">
+    <div class="container main-container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <google-map on-created-rectangle="main.addArea(coordinates)" on-edited-rectangle="main.editedArea(areaId, newCoordinates)"
@@ -48,6 +48,12 @@
         </div>
         <area-list data="main.data" on-delete-area-click="main.deleteArea(areaId)" on-edit-area-click="main.editArea(areaId)"></area-list>
     </div>
+    <footer class="footer footer-inverse">
+        <div class="container">
+            <p class="text-muted">Copyright <a href="https://github.com/NickMihaiu91" alt="github link" target="_blank">Nick</a> 
+            - Created for <a href="http://realaudience.se/" alt="real audience ab" target="_blank"> Real Audience AB</a> code test.</p>
+        </div>
+    </footer>
     <!-- .modal -->
     <div id="setAreaNameModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
